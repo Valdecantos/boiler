@@ -47,7 +47,7 @@ const routes: Routes = [{
     loadChildren: './miscellaneous/miscellaneous.module#MiscellaneousModule',
   }, {
     path: '',
-    redirectTo: 'dashboard',
+    redirectTo: 'iot-dashboard',
     pathMatch: 'full',
   }, {
     path: '**',
