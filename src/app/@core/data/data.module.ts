@@ -1,8 +1,6 @@
 import { NgModule, ModuleWithProviders } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
-import { UserService } from './users.service';
-import { ElectricityService } from './electricity.service';
 import { StateService } from './state.service';
 import { SmartTableService } from './smart-table.service';
 import { PlayerService } from './player.service';
@@ -16,10 +14,13 @@ import { OrdersProfitChartService } from './orders-profit-chart.service';
 import { TrafficBarService } from './traffic-bar.service';
 import { ProfitBarAnimationChartService } from './profit-bar-animation-chart.service';
 import { LayoutService } from './layout.service';
+import { BoilerService } from './boiler.service';
+import { MeasuresService } from './measures.service';
+import { ScheduleService } from './schedule.service';
+import { SettingsService } from './settings.service';
+import { WeatherService } from './weather.service';
 
 const SERVICES = [
-  UserService,
-  ElectricityService,
   StateService,
   SmartTableService,
   PlayerService,
@@ -33,6 +34,11 @@ const SERVICES = [
   TrafficBarService,
   ProfitBarAnimationChartService,
   LayoutService,
+  BoilerService,
+  MeasuresService,
+  ScheduleService,
+  SettingsService,
+  WeatherService
 ];
 
 @NgModule({

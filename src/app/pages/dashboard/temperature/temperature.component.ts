@@ -1,5 +1,6 @@
 import { Component, OnDestroy } from '@angular/core';
 import { NbThemeService } from '@nebular/theme';
+import { BoilerService } from '../../../@core/data/boiler.service';
 
 @Component({
   selector: 'ngx-temperature',
@@ -18,10 +19,17 @@ export class TemperatureComponent implements OnDestroy {
 
   colors: any;
   themeSubscription: any;
+  data: any;
 
-  constructor(private theme: NbThemeService) {
+  constructor(private theme: NbThemeService, private boilerData: BoilerService) {
     this.themeSubscription = this.theme.getJsTheme().subscribe(config => {
       this.colors = config.variables;
+      /*var data = boilerData.getData();
+      this.data = data.subscribe(resp => {
+        console.log("CVGGGGGG",resp);
+        this.data = resp;
+      });
+      */
     });
   }
 
