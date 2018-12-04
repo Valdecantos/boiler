@@ -39,7 +39,7 @@ export class TemperatureComponent implements OnDestroy {
 
 
   setTemperature(_evt){
-    document.getElementById('selector-value').textContent = this.temperatureOff ? '---' : Math.round(_evt * 10)/10;
+    document.getElementById('selector-value').textContent = this.temperatureOff ? '---' : (Math.round(_evt * 10)/10).toString();
 
     if (Math.round(_evt * 10)/10 === Math.round(_evt)) { 
       document.getElementById('selector-value').classList.remove('decimal');

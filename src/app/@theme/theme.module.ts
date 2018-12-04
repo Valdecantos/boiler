@@ -50,6 +50,7 @@ import {
   ThemeSwitcherComponent,
   TinyMCEComponent,
   ThemeSwitcherListComponent,
+  DialogNamePromptComponent
 } from './components';
 import {
   CapitalizePipe,
@@ -121,6 +122,7 @@ const COMPONENTS = [
   SampleLayoutComponent,
   ThreeColumnsLayoutComponent,
   TwoColumnsLayoutComponent,
+  DialogNamePromptComponent
 ];
 
 const ENTRY_COMPONENTS = [
