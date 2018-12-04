@@ -63,7 +63,7 @@
     position: relative;
     display: inline-block;
     width: 3rem;
-    height: 1.5rem;
+    height: 1.7rem;
     margin: 0;
 
     input {
@@ -72,6 +72,10 @@
       &:checked + .slider::before {
         @include nb-ltr(transform, translateX(1.5rem));
         @include nb-rtl(transform, translateX(-1.5rem));
+      }
+
+      &:checked + .slider {
+        background-color: nb-theme(color-success);
       }
     }
 
@@ -88,10 +92,12 @@
     .slider::before {
       position: absolute;
       content: '';
-      height: 1.5rem;
-      width: 1.5rem;
+      top: 0.25rem;
+      left: 0.2rem;
+      height: 1.2rem;
+      width: 1.2rem;
       border-radius: 50%;
-      background-color: nb-theme(color-success);
+      background-color: #fff;
       transition: 0.2s;
 
       box-shadow: 0 0 0.25rem 0 rgba(nb-theme(color-fg), 0.4);

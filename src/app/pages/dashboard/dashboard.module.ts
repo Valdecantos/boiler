@@ -18,6 +18,11 @@ import { ProfitChartComponent } from './charts-panel/charts/profit-chart.compone
 import { ChartPanelSummaryComponent } from './charts-panel/chart-panel-summary/chart-panel-summary.component';
 import { ChartPanelHeaderComponent } from './charts-panel/chart-panel-header/chart-panel-header.component';
 import { ECommerceLegendChartComponent } from './legend-chart/legend-chart.component';
+import { TrafficRevealCardComponent } from './traffic-reveal-card/traffic-reveal-card.component';
+import { TrafficCardsHeaderComponent } from './traffic-reveal-card/traffic-cards-header/traffic-cards-header.component'
+import { TrafficFrontCardComponent } from './traffic-reveal-card/front-side/traffic-front-card.component';
+import { TrafficBarComponent } from './traffic-reveal-card/front-side/traffic-bar/traffic-bar.component';
+
 
 @NgModule({
   imports: [
@@ -39,7 +44,11 @@ import { ECommerceLegendChartComponent } from './legend-chart/legend-chart.compo
     ProfitChartComponent,
     ChartPanelSummaryComponent,
     ChartPanelHeaderComponent,
-    ECommerceLegendChartComponent
+    ECommerceLegendChartComponent,
+    TrafficRevealCardComponent,
+    TrafficCardsHeaderComponent,
+    TrafficFrontCardComponent,
+    TrafficBarComponent
   ],
 })
 export class DashboardModule { }

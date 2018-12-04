@@ -28,7 +28,9 @@
       </g>
 
       <circle [attr.cx]="styles.thumbPosition.x" [attr.cy]="styles.thumbPosition.y" [attr.r]="pinRadius"
-              [attr.stroke-width]="thumbBorder / scaleFactor" [attr.value]="value"  class="circle">23</circle>
+              [attr.stroke-width]="thumbBorder / scaleFactor" [attr.value]="value"  class="circle"></circle>
+      <text id="selector-value" [attr.x]="styles.thumbPosition.x-13" [attr.y]="styles.thumbPosition.y+7">23</text>
+      
     </g>
   </svg>
 </div>

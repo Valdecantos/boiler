@@ -1,0 +1,31 @@
+<nb-card-body>
+  <ul class="traffic-list">
+    <li *ngFor="let item of frontCardData; trackBy: trackByDate">
+        <div class="value"><button class="btn btn-demo" [ngClass]="{'btn-secondary':item[1],'btn-success':!item[1]}" (click)="item[1]=!item[1]">L</button></div>
+        <div class="value"><button class="btn btn-demo" [ngClass]="{'btn-secondary':item[2],'btn-success':!item[2]}" (click)="item[2]=!item[2]">M</button></div>
+        <div class="value"><button class="btn btn-demo" [ngClass]="{'btn-secondary':item[3],'btn-success':!item[3]}" (click)="item[3]=!item[3]">X</button></div>
+        <div class="value"><button class="btn btn-demo" [ngClass]="{'btn-secondary':item[4],'btn-success':!item[4]}" (click)="item[4]=!item[4]">J</button></div>
+        <div class="value"><button class="btn btn-demo" [ngClass]="{'btn-secondary':item[5],'btn-success':!item[5]}" (click)="item[5]=!item[5]">V</button></div>
+        <div class="value"><button class="btn btn-demo" [ngClass]="{'btn-secondary':item[6],'btn-success':!item[6]}" (click)="item[6]=!item[6]">S</button></div>
+        <div class="value"><button class="btn btn-demo" [ngClass]="{'btn-secondary':item[7],'btn-success':!item[7]}" (click)="item[7]=!item[7]">D</button></div>
+        <div class="value">{{item.begin_time | date:'H:mm'}}</div>
+        <div class="value">{{item.end_time | date:'H:mm'}}</div>
+        <input class="form-control" type="text" placeholder="temp" #item.desired_temperature>
+        <ngx-switcher
+          [firstValue]="true"
+          [secondValue]="false"
+          [value]=item.active
+          (valueChange)="item.active=!item.active"
+          [vertical]="vertical"
+        >
+        </ngx-switcher>
+        <!--<div class="icon">
+          <div class="value"><i class="nb-trash"></i></div>
+        </div>-->
+    </li>
+  </ul>
+</nb-card-body>
+<div class="col-md-2 offset-md-5">
+  <br>
+  <button nbButton status="success" outline class="btn-demo">+</button>
+</div>

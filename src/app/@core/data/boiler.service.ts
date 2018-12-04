@@ -3,6 +3,12 @@ import { HttpClient } from '@angular/common/http';
 import { HttpHeaders } from '@angular/common/http';
 import { ConnectionService } from '../../@core/utils/connection.service';
 
+export class BoylerItem {
+  _id: string;
+  boiler_on: boolean;
+  flag_on: boolean;
+}
+
 @Injectable()
 export class BoilerService {
 
@@ -22,7 +28,10 @@ export class BoilerService {
 
   getData() {
     return this.http.get(this.connectionUrl,this.httpOptions);
+  }
 
+  postData(body) {
+    return this.http.post(this.connectionUrl,this.httpOptions, body);
   }
 
 }

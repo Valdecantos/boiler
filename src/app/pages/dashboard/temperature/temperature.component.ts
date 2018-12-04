@@ -36,4 +36,15 @@ export class TemperatureComponent implements OnDestroy {
   ngOnDestroy() {
     this.themeSubscription.unsubscribe();
   }
+
+
+  setTemperature(_evt){
+    document.getElementById('selector-value').textContent = this.temperatureOff ? '---' : Math.round(_evt * 10)/10;
+
+    if (Math.round(_evt * 10)/10 === Math.round(_evt)) { 
+      document.getElementById('selector-value').classList.remove('decimal');
+    } else {
+      document.getElementById('selector-value').classList.add('decimal');
+    }
+  }
 }

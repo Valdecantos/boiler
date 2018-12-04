@@ -1,8 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
-
-import { NbMenuService, NbSidebarService } from '@nebular/theme';
-import { AnalyticsService } from '../../../@core/utils/analytics.service';
-import { LayoutService } from '../../../@core/data/layout.service';
+import { NbSidebarService, NbDialogService } from '@nebular/theme';
+import { DialogNamePromptComponent } from '../dialog-name-prompt/dialog-name-prompt.component';
 
 @Component({
   selector: 'ngx-header',
@@ -13,37 +11,19 @@ export class HeaderComponent implements OnInit {
 
   @Input() position = 'normal';
 
-  user: any;
 
-  userMenu = [{ title: 'Profile' }, { title: 'Log out' }];
-
-  constructor(private sidebarService: NbSidebarService,
-              private menuService: NbMenuService,
-              private analyticsService: AnalyticsService,
-              private layoutService: LayoutService) {
+  constructor(private sidebarService: NbSidebarService, private dialogService: NbDialogService) {
   }
 
   ngOnInit() {
   }
 
-  toggleSidebar(): boolean {
-    this.sidebarService.toggle(true, 'menu-sidebar');
-    this.layoutService.changeLayoutSize();
+
+  modalSettings(): boolean {
+    this.dialogService.open(DialogNamePromptComponent)
+      .onClose.subscribe(name => name && console.log(name));
 
     return false;
   }
 
-  toggleSettings(): boolean {
-    this.sidebarService.toggle(false, 'settings-sidebar');
-
-    return false;
-  }
-
-  goToHome() {
-    this.menuService.navigateHome();
-  }
-
-  startSearch() {
-    this.analyticsService.trackEvent('startSearch');
-  }
 }

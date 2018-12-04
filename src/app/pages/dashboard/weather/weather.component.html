@@ -34,7 +34,7 @@
         </div>
       </div>
     </div>
-    <div class="weekly-forecast">
+    <div class="weekly-forecast" *ngIf="aprox(forecast) && aprox(forecast)[0]">
       <div class="day">
         <span class="caption">{{aprox(forecast)[0].dt*1000 | date:'EEE'}}</span>
         <i [ngClass]="getIconClass(aprox(forecast)[0].weather)"></i>

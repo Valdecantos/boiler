@@ -4,16 +4,16 @@
     <nb-tab tabTitle="Temperatura">
 
       <div class="slider-container">
-        <ngx-temperature-dragger [(value)]="temperature" (power)="temperatureOff = !$event"
-                                 [min]="12" [max]="30" [disableArcColor]="colors.layoutBg"
-                                 [fillColors]="colors.temperature">
+        <ngx-temperature-dragger [(value)]="temperature" (power)="temperatureOff = !$event;setTemperature(temperature)"
+                                 [min]="14" [max]="28" [disableArcColor]="colors.layoutBg"
+                                 [fillColors]="colors.temperature" (valueChange)="setTemperature($event)">
 
-          <div class="slider-value-container"  [ngClass]="{ 'off': temperatureOff }">
+          <div class="slider-value-container">
             <div class="value temperature">
-              {{ temperatureOff ? '--' : (temperature | ngxRound) }}
+              {{ 24.38 | number:"1.0-1" }}
             </div>
             <div class="desc">
-              Humedad: <span>55%</span>
+              Humedad: <span>{{ 55.5 | number:"1.0-1" }}%</span>
             </div>
           </div>
         </ngx-temperature-dragger>
@@ -26,12 +26,6 @@
         </label>
         <label ngbButtonLabel class="btn btn-icon">
           <input ngbButton type="radio" value="warm"/><i class="nb-sunny-circled"></i>
-        </label>
-        <label ngbButtonLabel class="btn btn-icon">
-          <input ngbButton type="radio" value="heat"/><i class="nb-flame-circled"></i>
-        </label>
-        <label ngbButtonLabel class="btn btn-icon">
-          <input ngbButton type="radio" value="fan"/><i class="nb-loop-circled"></i>
         </label>
       </div>
     </nb-tab>
