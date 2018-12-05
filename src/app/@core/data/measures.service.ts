@@ -3,6 +3,14 @@ import { HttpClient } from '@angular/common/http';
 import { HttpHeaders } from '@angular/common/http';
 import { ConnectionService } from '../../@core/utils/connection.service';
 
+export interface MeasureItem {
+  _id: string;
+  date: string;
+  current_temp: number;
+  current_humidity: number;
+}
+
+
 @Injectable()
 export class MeasuresService {
 
@@ -20,6 +28,13 @@ export class MeasuresService {
 
   // TODO: observables
   getData() {
-    return this.http.get(this.connectionUrl,this.httpOptions);
+    return this.http.get<Array<MeasureItem>>(this.connectionUrl,this.httpOptions);
+  }
+
+  copy(item1:MeasureItem, item2:MeasureItem){
+    item1._id = item2._id;
+    item1.date = item2.date;
+    item1.current_temp = item2.current_temp;
+    item1.current_humidity = item2.current_humidity;
   }
 }

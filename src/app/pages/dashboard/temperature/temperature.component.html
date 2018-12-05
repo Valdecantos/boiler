@@ -1,4 +1,4 @@
-<nb-card size="large">
+<nb-card size="large" [nbSpinner]="loading" nbSpinnerSize="xxlarge">
   <nb-tabset fullWidth>
 
     <nb-tab tabTitle="Temperatura">
@@ -10,10 +10,10 @@
 
           <div class="slider-value-container">
             <div class="value temperature">
-              {{ 24.38 | number:"1.0-1" }}
+              {{ currentMeasure.current_temp | number:"1.0-1" }}
             </div>
             <div class="desc">
-              Humedad: <span>{{ 55.5 | number:"1.0-1" }}%</span>
+              Humedad: <span>{{ currentMeasure.current_humidity | number:"1.0-1" }}%</span>
             </div>
           </div>
         </ngx-temperature-dragger>

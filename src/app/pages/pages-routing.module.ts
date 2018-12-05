@@ -8,15 +8,15 @@ const routes: Routes = [{
   path: '',
   component: PagesComponent,
   children: [{
-    path: 'iot-dashboard',
+    path: 'iot',
     component: DashboardComponent,
   }, {
     path: '',
-    redirectTo: 'iot-dashboard',
+    redirectTo: 'iot',
     pathMatch: 'full',
   }, {
     path: '**',
-    redirectTo: 'iot-dashboard',
+    redirectTo: 'iot',
   }],
 }];
 
