@@ -39,6 +39,7 @@
   <ng-content></ng-content>
 </div>
 
-<div class="power-bg" [ngClass]="{'off': off}" (click)="switchPower()">
-  <i class="nb-power-circled"></i>
+<div class="power-bg" [ngClass]="{'off': powerVal === 'off'}" (click)="switchPower()">
+  <i class="nb-power-circled" [ngClass]="{'active': powerVal === 'manual'}" *ngIf="powerVal !== 'schedule'"></i>
+  <i class="nb-list" *ngIf="powerVal === 'schedule'"></i>
 </div>

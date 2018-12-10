@@ -30,8 +30,9 @@ export class TemperatureDraggerComponent implements AfterViewInit, OnChanges {
   @Input() min = 0; // min output value
   @Input() max = 100; // max output value
   @Input() step = 0.1;
+  @Input() powerVal = "manual";
 
-  @Output() power = new EventEmitter<boolean>();
+  @Output() power = new EventEmitter<string>();
 
   @HostListener('window:mouseup', ['$event'])
   onMouseUp(event) {
@@ -49,7 +50,6 @@ export class TemperatureDraggerComponent implements AfterViewInit, OnChanges {
     this.invalidate();
   }
 
-  off = false;
   oldValue: number;
 
   svgControlId = new Date().getTime();
@@ -61,6 +61,7 @@ export class TemperatureDraggerComponent implements AfterViewInit, OnChanges {
   thickness = 6;
   pinRadius = 10;
   colors: any = [];
+  powerValues = ['schedule','manual','off']
 
   styles = {
     viewBox: '0 0 300 300',
@@ -95,19 +96,24 @@ export class TemperatureDraggerComponent implements AfterViewInit, OnChanges {
 
   mouseDown(event) {
     this.isMouseDown = true;
-    if (!this.off) {
+    if (this.powerVal !== 'off') {
       this.recalculateValue(event, true);
     }
   }
 
   switchPower() {
-    this.off = !this.off;
-    this.power.emit(!this.off);
+    let index = this.powerValues.indexOf(this.powerVal);
+    if(index >= 0 && index <  this.powerValues.length - 1){
+      this.powerVal = this.powerValues[index+1];
+    } else if (index === this.powerValues.length - 1){
+      this.powerVal = this.powerValues[0] ;
+    }
+    this.power.emit(this.powerVal);
 
-    if (this.off) {
+    if (this.powerVal === 'off') {
       this.oldValue = this.value;
       this.value = this.min;
-    } else {
+    } else if (this.powerVal === 'schedule') {
       this.value = this.oldValue;
     }
 
@@ -313,7 +319,7 @@ export class TemperatureDraggerComponent implements AfterViewInit, OnChanges {
   }
 
   private recalculateValue(event, allowJumping = false) {
-    if (this.isMouseDown && !this.off) {
+    if (this.isMouseDown && this.powerVal !== 'off') {
       const rect = this.svgRoot.nativeElement.getBoundingClientRect();
       const center = {
         x: rect.left + VIEW_BOX_SIZE * this.scaleFactor / 2,

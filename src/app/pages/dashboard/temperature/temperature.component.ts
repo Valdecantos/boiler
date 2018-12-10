@@ -2,6 +2,7 @@ import { Component, OnDestroy } from '@angular/core';
 import { NbThemeService } from '@nebular/theme';
 import { BoilerService, BoilerItem } from '../../../@core/data/boiler.service';
 import { MeasuresService, MeasureItem } from '../../../@core/data/measures.service';
+import { SettingsService, SettingsItem } from '../../../@core/data/settings.service';
 
 function compare(a,b) {
   if (Date.parse(a.date) < Date.parse(b.date))
@@ -18,26 +19,27 @@ function compare(a,b) {
 })
 export class TemperatureComponent implements OnDestroy {
 
-  temperature = 22;
-  temperatureOff = false;
+  temperature = 16;
+  temperatureStatus = "off";
   temperatureMode = 'cool';
 
   humidity = 87;
   humidityOff = false;
   humidityMode = 'heat';
   loading = true;
-  loaded = -2;
+  loaded = -3;
 
   currentState = new BoilerItem();
   measures: Array<MeasureItem> = [];
-  currentMeasure = {} as MeasureItem;
+  currentMeasure = new MeasureItem();
+  currentSettings = new SettingsItem();
 
   colors: any;
   themeSubscription: any;
   dataB: any;
   dataM: any;
 
-  constructor(private theme: NbThemeService, private boilerData: BoilerService, private measuresData: MeasuresService) {
+  constructor(private theme: NbThemeService, private boilerData: BoilerService, private measuresData: MeasuresService, private settingsData: SettingsService) {
     this.themeSubscription = this.theme.getJsTheme().subscribe(config => {
       this.colors = config.variables;
     });
@@ -46,6 +48,7 @@ export class TemperatureComponent implements OnDestroy {
   ngOnInit() {
     this.getBoilerData();
     this.getMeasuresData();
+    this.getSettingsData();
 
   }
 
@@ -55,31 +58,56 @@ export class TemperatureComponent implements OnDestroy {
 
   getBoilerData(){
     this.boilerData.getData()
-      .subscribe(data => {
-        this.currentState.copy(data[0]);
-        this.loaded++;
-        if (this.loaded === 0){
-          this.loading = false;
-        }
-      });
+      .subscribe(
+        data => {
+          this.currentState.set(data[0]);
+          this.loaded++;
+          if (this.loaded === 0){
+            this.loading = false;
+          }
+        },
+        error => {
+          console.log("La hemos cagado", error);
+        });
+  }
+
+  getSettingsData(){
+    this.settingsData.getData()
+      .subscribe(
+        data => {
+          this.currentSettings.set(data[0]);
+          this.temperature = this.currentSettings.desired_temp;
+          this.setTemperature(this.temperature);
+          this.loaded++;
+          if (this.loaded === 0){
+            this.loading = false;
+          }
+        },
+        error => {
+          console.log("La hemos cagado", error);
+        });
   }
 
   getMeasuresData(){
     this.measuresData.getData()
-      .subscribe(data => {
-        data.forEach(element => {
-          this.measures.push(element);
+      .subscribe(
+        data => {
+          data.forEach(element => {
+            this.measures.push(element);
+          });
+          this.currentMeasure.set(this.measures.sort(compare)[0]);
+          this.loaded++;
+          if (this.loaded === 0){
+            this.loading = false;
+          }
+        },
+        error => {
+          console.log("La hemos cagado", error);
         });
-        this.measuresData.copy(this.currentMeasure, this.measures.sort(compare)[0]);
-        this.loaded++;
-        if (this.loaded === 0){
-          this.loading = false;
-        }
-      });
   }
 
   setTemperature(_evt){
-    document.getElementById('selector-value').textContent = this.temperatureOff ? '---' : (Math.round(_evt * 10)/10).toString();
+    document.getElementById('selector-value').textContent = this.temperatureStatus==='off' ? '---' : (Math.round(_evt * 10)/10).toString();
 
     if (Math.round(_evt * 10)/10 === Math.round(_evt)) { 
       document.getElementById('selector-value').classList.remove('decimal');

@@ -3,11 +3,18 @@ import { HttpClient } from '@angular/common/http';
 import { HttpHeaders } from '@angular/common/http';
 import { ConnectionService } from '../../@core/utils/connection.service';
 
-export interface MeasureItem {
+export class MeasureItem {
   _id: string;
   date: string;
   current_temp: number;
   current_humidity: number;
+
+  set(item:MeasureItem){
+    this._id = item._id;
+    this.date = item.date;
+    this.current_temp = item.current_temp;
+    this.current_humidity = item.current_humidity;
+  }
 }
 
 

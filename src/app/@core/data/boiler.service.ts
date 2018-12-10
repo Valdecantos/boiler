@@ -8,8 +8,10 @@ export class BoilerItem {
   boiler_on: boolean;
   flag_on: boolean;
 
-  copy(item:BoilerItem){
-    this._id=item._id;this.boiler_on=item.boiler_on;this.flag_on=item.flag_on;
+  set(item:BoilerItem){
+    this._id=item._id;
+    this.boiler_on=item.boiler_on;
+    this.flag_on=item.flag_on;
   };
 }
 

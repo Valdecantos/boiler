@@ -91,6 +91,12 @@
     }
   }
 
+  .nb-power-circled {
+    &.active{
+      color: nb-theme(color-success);
+    }
+  }
+
   @include nb-for-theme(cosmic) {
     .circle {
       fill: nb-theme(color-fg-heading);
