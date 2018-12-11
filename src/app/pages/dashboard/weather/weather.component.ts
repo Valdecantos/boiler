@@ -1,5 +1,4 @@
-import { Component } from '@angular/core';
-import { WeatherService } from '../../../@core/data/weather.service'
+import { Component, Input } from '@angular/core';
 
 @Component({
   selector: 'ngx-weather',
@@ -9,23 +8,13 @@ import { WeatherService } from '../../../@core/data/weather.service'
 
 export class WeatherComponent {
 
-  data: any;
-  forecast: any;
-  fiveDays: any;
+  @Input() weather: any = {};
+  @Input() forecast: any = [];
 
-  constructor(private weatherData: WeatherService) {
-      var data = weatherData.getData();
-      var forecast = weatherData.geForecast();
-      this.data = data.subscribe(resp => {
-        this.data = resp;
-      });
-      this.forecast = forecast.subscribe(resp => {
-        this.forecast = resp;
-      });
+  constructor() {
   }
 
   aprox(data: any){
-    //this.fiveDays = this.forecast.list && this.forecast.list.filter(fore => fore.dt_txt.indexOf("12:00:00") !== -1)
 
     return data['list'] && data['list'].filter(fore => fore.dt_txt.indexOf("12:00:00") !== -1);
   }

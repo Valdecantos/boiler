@@ -4,7 +4,7 @@
     <nb-tab tabTitle="Temperatura">
 
       <div class="slider-container">
-        <ngx-temperature-dragger [(value)]="temperature" (power)="temperatureStatus = $event;setTemperature(temperature)"
+        <ngx-temperature-dragger [(value)]="temperature" (power)="setTemperatureStatus($event);setTemperature(temperature)"
                                  [min]="14" [max]="28" [disableArcColor]="colors.layoutBg" [powerVal]="temperatureStatus" 
                                  [fillColors]="colors.temperature" (valueChange)="setTemperature($event)">
 
@@ -31,6 +31,9 @@
     </nb-tab>
     <nb-tab tabTitle="Programación">
         <ngx-traffic-front-card [frontCardData]="schedule"></ngx-traffic-front-card>
+    </nb-tab>
+    <nb-tab tabTitle="Clima">
+      <ngx-weather [weather]="currentWeather" [forecast]="forecast"></ngx-weather>
     </nb-tab>
   </nb-tabset>
 </nb-card>
