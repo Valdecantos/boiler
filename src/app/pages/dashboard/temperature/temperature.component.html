@@ -5,7 +5,7 @@
 
       <div class="slider-container">
         <ngx-temperature-dragger [(value)]="temperature" (power)="temperatureStatus = $event;setTemperature(temperature)"
-                                 [min]="14" [max]="28" [disableArcColor]="colors.layoutBg"
+                                 [min]="14" [max]="28" [disableArcColor]="colors.layoutBg" [powerVal]="temperatureStatus" 
                                  [fillColors]="colors.temperature" (valueChange)="setTemperature($event)">
 
           <div class="slider-value-container">
@@ -28,6 +28,9 @@
           <input ngbButton type="radio" value="warm"/><i class="nb-sunny-circled"></i>
         </label>
       </div>
+    </nb-tab>
+    <nb-tab tabTitle="Programación">
+        <ngx-traffic-front-card [frontCardData]="schedule"></ngx-traffic-front-card>
     </nb-tab>
   </nb-tabset>
 </nb-card>

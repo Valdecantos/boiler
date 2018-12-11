@@ -58,6 +58,10 @@
     }
   }
 
+  .form-control {
+    text-align: right;
+  }
+
   .date {
     @include nb-for-theme(corporate) {
       color: nb-theme(color-fg-heading);

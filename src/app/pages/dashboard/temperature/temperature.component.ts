@@ -3,6 +3,7 @@ import { NbThemeService } from '@nebular/theme';
 import { BoilerService, BoilerItem } from '../../../@core/data/boiler.service';
 import { MeasuresService, MeasureItem } from '../../../@core/data/measures.service';
 import { SettingsService, SettingsItem } from '../../../@core/data/settings.service';
+import { ScheduleService, ScheduleItem } from '../../../@core/data/schedule.service';
 
 function compare(a,b) {
   if (Date.parse(a.date) < Date.parse(b.date))
@@ -27,19 +28,24 @@ export class TemperatureComponent implements OnDestroy {
   humidityOff = false;
   humidityMode = 'heat';
   loading = true;
-  loaded = -3;
+  loaded = -4;
 
   currentState = new BoilerItem();
   measures: Array<MeasureItem> = [];
   currentMeasure = new MeasureItem();
   currentSettings = new SettingsItem();
+  schedule: Array<ScheduleItem> = [];
 
   colors: any;
   themeSubscription: any;
   dataB: any;
   dataM: any;
 
-  constructor(private theme: NbThemeService, private boilerData: BoilerService, private measuresData: MeasuresService, private settingsData: SettingsService) {
+  constructor(private theme: NbThemeService, 
+              private boilerData: BoilerService, 
+              private measuresData: MeasuresService, 
+              private settingsData: SettingsService,
+              private scheduleData: ScheduleService) {
     this.themeSubscription = this.theme.getJsTheme().subscribe(config => {
       this.colors = config.variables;
     });
@@ -49,6 +55,7 @@ export class TemperatureComponent implements OnDestroy {
     this.getBoilerData();
     this.getMeasuresData();
     this.getSettingsData();
+    this.getScheduleData();
 
   }
 
@@ -77,6 +84,7 @@ export class TemperatureComponent implements OnDestroy {
         data => {
           this.currentSettings.set(data[0]);
           this.temperature = this.currentSettings.desired_temp;
+          this.temperatureStatus = this.currentSettings.schedule ? 'schedule' : this.currentSettings.manual ? 'manual' : 'off';
           this.setTemperature(this.temperature);
           this.loaded++;
           if (this.loaded === 0){
@@ -106,8 +114,27 @@ export class TemperatureComponent implements OnDestroy {
         });
   }
 
+  getScheduleData(){
+    this.scheduleData.getData()
+      .subscribe(
+        data => {
+          if (data.length){
+            data.forEach(element => {
+              this.schedule.push(element);
+            });
+            this.loaded++;
+            if (this.loaded === 0){
+              this.loading = false;
+            }
+          }
+        },
+        error => {
+          console.log("La hemos cagado", error);
+        });
+  }
+
   setTemperature(_evt){
-    document.getElementById('selector-value').textContent = this.temperatureStatus==='off' ? '---' : (Math.round(_evt * 10)/10).toString();
+    document.getElementById('selector-value').textContent = this.temperatureStatus==='off' ? '' : (Math.round(_evt * 10)/10).toString();
 
     if (Math.round(_evt * 10)/10 === Math.round(_evt)) { 
       document.getElementById('selector-value').classList.remove('decimal');

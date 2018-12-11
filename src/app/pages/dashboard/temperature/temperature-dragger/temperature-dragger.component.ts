@@ -96,7 +96,7 @@ export class TemperatureDraggerComponent implements AfterViewInit, OnChanges {
 
   mouseDown(event) {
     this.isMouseDown = true;
-    if (this.powerVal !== 'off') {
+    if (this.powerVal === 'manual') {
       this.recalculateValue(event, true);
     }
   }
@@ -319,7 +319,7 @@ export class TemperatureDraggerComponent implements AfterViewInit, OnChanges {
   }
 
   private recalculateValue(event, allowJumping = false) {
-    if (this.isMouseDown && this.powerVal !== 'off') {
+    if (this.isMouseDown && this.powerVal === 'manual') {
       const rect = this.svgRoot.nativeElement.getBoundingClientRect();
       const center = {
         x: rect.left + VIEW_BOX_SIZE * this.scaleFactor / 2,

@@ -13,12 +13,27 @@ export class TrafficRevealCardComponent implements OnDestroy {
   private alive = true;
 
   trafficListData: TrafficList;
-  scheduleData: Array<ScheduleItem>;
+  scheduleData: Array<ScheduleItem> = [];
   revealed = false;
   period: string = 'week';
 
   constructor(private trafficListService: TrafficListService, private scheduleService: ScheduleService) {
-    this.scheduleData = this.scheduleService.getData();
+
+    this.scheduleService.getData()
+      .subscribe(
+        data => {
+          if (data.length){
+            data.forEach(element => {
+              this.scheduleData.push(element);
+            });
+          } else {
+            this.scheduleData = [];
+          }
+        },
+        error => {
+          console.log("La hemos cagado", error);
+        });
+
   }
 
   toggleView() {

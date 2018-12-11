@@ -21,13 +21,13 @@ export class MeasureItem {
 @Injectable()
 export class MeasuresService {
 
-  private connectionUrl = this.connectionService.getBaseUrl()+"measures";
+  private connectionUrl = this.connectionService.getBaseUrl() + "measures";
   private httpOptions = {
     headers: new HttpHeaders({
       'cache-control': 'no-cache',
       'x-apikey': this.connectionService.getApiKey(),
       'Content-Type':  'application/json',
-    })
+    }),
   };
 
   constructor(private http: HttpClient, private connectionService:ConnectionService) {
@@ -35,7 +35,7 @@ export class MeasuresService {
 
   // TODO: observables
   getData() {
-    return this.http.get<Array<MeasureItem>>(this.connectionUrl,this.httpOptions);
+    return this.http.get<Array<MeasureItem>>(this.connectionUrl, this.httpOptions);
   }
 
   copy(item1:MeasureItem, item2:MeasureItem){
