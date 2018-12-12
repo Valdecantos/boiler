@@ -12,6 +12,11 @@
     height: 100%;
     padding: 2rem;
     color: nb-theme(color-fg);
+    position: absolute;
+    top: 52.3%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    min-width: 384px;
   }
 
   .location {
